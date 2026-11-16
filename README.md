@@ -14,14 +14,10 @@ You need a GitHub account with Codespaces access. Codespaces runs VS Code and th
 3. Choose the Codespaces tab, then Create codespace on main. Wait for the browser-based VS Code editor to finish opening.
 
 
-4. If this option is unavailable, use Option B below.
+4. In Codespaces, click Terminal → New Terminal at the top of the editor. Commands below go into this terminal, not into a Python file.
 
 
-
-10. In Codespaces, click Terminal → New Terminal at the top of the editor. Commands below go into this terminal, not into a Python file.
-
-
-11. Make sure the file list on the left includes app.py and requirements.txt. Run these commands one line at a time, pressing Enter after each:
+5. Make sure the file list on the left includes app.py and requirements.txt. Run these commands one line at a time, pressing Enter after each:
    
    python3 -m venv .venv
 
@@ -29,17 +25,17 @@ You need a GitHub account with Codespaces access. Codespaces runs VS Code and th
 
    Installation may take several minutes. Wait until the second command finishes before proceeding.
    
-11. Start the dashboard:
+6. Start the dashboard:
 
    .venv/bin/python -m streamlit run app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true
    
-12. Keep the terminal running. In the Codespaces editor, open the Ports tab (usually in the bottom panel, beside Terminal). Find port 8501, then click the globe icon or Open in Browser. If prompted to make the port available, use the Codespaces port controls. Do not expose a public port if you plan to enter private data.
+7. Keep the terminal running. In the Codespaces editor, open the Ports tab (usually in the bottom panel, beside Terminal). Find port 8501, then click the globe icon or Open in Browser. If prompted to make the port available, use the Codespaces port controls. Do not expose a public port if you plan to enter private data.
 
 
-13. The AI Security Assistant dashboard should open in a new browser tab. If it does not, see Troubleshooting below.
+8. The AI Security Assistant dashboard should open in a new browser tab. If it does not, see Troubleshooting below.
 
 
-14. To stop the app, return to the terminal and press Ctrl+C. To start it again in the same Codespace, repeat only step 6.
+9. To stop the app, return to the terminal and press Ctrl+C. To start it again in the same Codespace, repeat only step 6.
 
 
 Optional: Enable Ask Assistant

@@ -213,6 +213,19 @@ def initialize_demo_database():
 
     # First-time installation: create the database.
     create_database()
+    
+    # Create the additional tables.
+    create_event_tables()
+    create_response_tables()
+
+    # Add sample alerts and security events.
+    seed_demo_alerts()
+    seed_security_events()
+
+    # Remember that setup was completed.
+    SETUP_MARKER.touch()
+
+    return True
 
     if not DB_PATH.exists():
         raise RuntimeError("Database initialization failed.")

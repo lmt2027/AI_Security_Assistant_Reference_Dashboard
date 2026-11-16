@@ -192,15 +192,15 @@ DB_PATH = Path(__file__).resolve().parent / "security_assistant.db"
 SETUP_MARKER = Path(__file__).resolve().parent / ".database_initialized"
 
 
+
 def initialize_demo_database():
     """
-    Create a database for a first-time installation.
-    Do not silently replace a previously initialized database.
+    Set up the database for a first-time user.
+    Protect an existing database if it goes missing.
     """
 
     if DB_PATH.exists():
-        # Existing database: do not overwrite it.
-        # The app's normal database validation should still run.
+        # Keep the existing database.
         SETUP_MARKER.touch(exist_ok=True)
         return True
 
@@ -211,7 +211,7 @@ def initialize_demo_database():
             "Restore security_assistant.db from a backup."
         )
 
-    # First-time installation only
+    # First-time installation: create the database.
     create_database()
 
     if not DB_PATH.exists():

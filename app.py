@@ -12,6 +12,17 @@ from datetime import datetime, timedelta
 import pandas as pd
 import streamlit as st
 
+try:
+    initialize_demo_database()
+
+except (FileNotFoundError, RuntimeError) as error:
+    st.error(str(error))
+    st.warning(
+        "The application has stopped to protect "
+        "your existing security records."
+    )
+    st.stop()
+
 from database import (
     create_database,
     get_detected_alerts,

@@ -1,4 +1,3 @@
-
 """AI Security Assistant — Streamlit Capstone Dashboard.
 
 Uses synthetic security events stored in SQLite.
@@ -12,18 +11,8 @@ from datetime import datetime, timedelta
 import pandas as pd
 import streamlit as st
 
-try:
-    initialize_demo_database()
-
-except (FileNotFoundError, RuntimeError) as error:
-    st.error(str(error))
-    st.warning(
-        "The application has stopped to protect "
-        "your existing security records."
-    )
-    st.stop()
-
 from database import (
+    initialize_demo_database,
     create_database,
     get_detected_alerts,
     get_reviews,
@@ -64,6 +53,16 @@ import sqlite3
 from pathlib import Path
 
 DATABASE_PATH = Path(__file__).resolve().parent / "security_assistant.db"
+
+# Create a seeded database on first launch only.
+# A missing previously initialized database remains a hard stop.
+try:
+    initialize_demo_database()
+except (FileNotFoundError, RuntimeError, sqlite3.Error, OSError) as error:
+    st.error("Database setup could not be completed.")
+    st.warning("The application has stopped to protect existing security records.")
+    st.code(str(error))
+    st.stop()
 
 # Check that the original database exists before initializing.
 if not DATABASE_PATH.is_file():

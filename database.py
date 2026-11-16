@@ -184,3 +184,38 @@ def get_response_actions():
     with connect() as db:
         return [tuple(r) for r in db.execute("""SELECT id, alert_id, action, status, notes, updated_at
             FROM response_actions ORDER BY id DESC""").fetchall()]
+
+
+from pathlib import Path
+
+DB_PATH = Path(__file__).resolve().parent / "security_assistant.db"
+SETUP_MARKER = Path(__file__).resolve().parent / ".database_initialized"
+
+
+def initialize_demo_database():
+    """
+    Create a database for a first-time installation.
+    Do not silently replace a previously initialized database.
+    """
+
+    if DB_PATH.exists():
+        # Existing database: do not overwrite it.
+        # The app's normal database validation should still run.
+        SETUP_MARKER.touch(exist_ok=True)
+        return True
+
+    if SETUP_MARKER.exists():
+        # The database existed before but is now missing.
+        raise FileNotFoundError(
+            "The existing security database is missing. "
+            "Restore security_assistant.db from a backup."
+        )
+
+    # First-time installation only
+    create_database()
+
+    if not DB_PATH.exists():
+        raise RuntimeError("Database initialization failed.")
+
+    SETUP_MARKER.touch()
+    return True
